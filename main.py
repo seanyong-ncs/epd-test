@@ -6,7 +6,8 @@ from consolemenu.items import *
 
 fill_test_cases = [[50, 90, 15], [50, 60, 15], [30, 15]]
 overheat_test_case = [300, 1500]
- 
+fill_delay = 120
+
 machine_id = 864622110032548
 
 def send_throw_trash(percentage):
@@ -93,9 +94,9 @@ if __name__ == '__main__':
 
     overheat_case = FunctionItem("Overheat Case", overheat_test, [])
 
-    throw_trash_item1 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 0)}", run_throw_trash_test, [fill_test_cases[0], 5])
-    throw_trash_item2 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 1)}", run_throw_trash_test, [fill_test_cases[1], 5])
-    throw_trash_item3 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 2)}", run_throw_trash_test, [fill_test_cases[2], 5])
+    throw_trash_item1 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 0)}", run_throw_trash_test, [fill_test_cases[0], fill_delay])
+    throw_trash_item2 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 1)}", run_throw_trash_test, [fill_test_cases[1], fill_delay])
+    throw_trash_item3 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 2)}", run_throw_trash_test, [fill_test_cases[2], fill_delay])
     fill_case_menu = ConsoleMenu("EPD Test Scripts", "Select a test script")
     fill_case_submenu_item = SubmenuItem("Fill Cases", fill_case_menu, menu)
 
