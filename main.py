@@ -5,7 +5,7 @@ from consolemenu import *
 from consolemenu.items import *
 
 fill_test_cases = [[50, 90, 15], [50, 60, 15], [30, 15]]
-overheat_test_case = [5, 10]
+overheat_test_case = [300, 1500]
  
 machine_id = 864622110032548
 
