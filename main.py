@@ -4,9 +4,11 @@ import time
 from consolemenu import *
 from consolemenu.items import *
 
-fill_test_cases = [[50, 90, 15], [50, 60, 15], [30, 15]]
+fill_test_cases = [[50, 90, 15], #Test case 1
+                   [50, 60, 15], #Test case 2
+                   [30, 15]]     #Test case 3
 overheat_test_case = [300, 1500]
-fill_delay = 120
+fill_delay = 120 # time in seconds before sending command
 
 machine_id = 864622110032548
 
