@@ -9,6 +9,8 @@ fill_test_cases = [[50, 90, 15], #Test case 1
                    [30, 15]]     #Test case 3
 overheat_test_case = [300, 1500]
 fill_delay = 120 # time in seconds before sending command
+asc_sleep = 5
+asc_increment = 1 # Percentage increment
 
 machine_id = 864622110032548
 
@@ -21,7 +23,7 @@ def send_throw_trash(percentage):
     "dataList": [
         {
         "garbageIndex": 1,
-        "type": 9,
+        "type": 3,
         "weight": 100,
         "beforeWeight": 1434,
         "afterWeight": 1441,
@@ -47,7 +49,7 @@ def send_overheat():
     payload = json.dumps({
     "dataList": [
         {
-        "temperature": "82",
+        "temperature": "83",
         "errorCode": 311,
         "errorStatus": 1
         }
@@ -62,6 +64,12 @@ def send_overheat():
     response = requests.request("POST", url, headers=headers, data=payload)
 
     print(response.status_code)
+
+def asc_fill():
+    for level in range(int(100/asc_increment)):
+        send_throw_trash(level * asc_increment)
+        print(f"Setting fill level of machine {machine_id} to {level * asc_increment}%, going to sleep for {asc_sleep} seconds")
+        time.sleep(asc_sleep)
 
 def run_throw_trash_test(fill_cases, delay):
     for index, level in enumerate(fill_cases):
@@ -99,12 +107,14 @@ if __name__ == '__main__':
     throw_trash_item1 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 0)}", run_throw_trash_test, [fill_test_cases[0], fill_delay])
     throw_trash_item2 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 1)}", run_throw_trash_test, [fill_test_cases[1], fill_delay])
     throw_trash_item3 = FunctionItem(f"Run fill case {p_list(fill_test_cases, 2)}", run_throw_trash_test, [fill_test_cases[2], fill_delay])
+    throw_trash_item4 = FunctionItem(f"Run {asc_increment}% ascending fill case", asc_fill)
     fill_case_menu = ConsoleMenu("EPD Test Scripts", "Select a test script")
     fill_case_submenu_item = SubmenuItem("Fill Cases", fill_case_menu, menu)
 
     fill_case_menu.append_item(throw_trash_item1)
     fill_case_menu.append_item(throw_trash_item2)
     fill_case_menu.append_item(throw_trash_item3)
+    fill_case_menu.append_item(throw_trash_item4)
     menu.append_item(fill_case_submenu_item)
     menu.append_item(overheat_case)
     menu.show()
