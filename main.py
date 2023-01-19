@@ -9,8 +9,8 @@ fill_test_cases = [[50, 90, 15], #Test case 1
                    [30, 15]]     #Test case 3
 overheat_test_case = [300, 1500]
 fill_delay = 120 # time in seconds before sending command
-asc_sleep = 5
-asc_increment = 1 # Percentage increment
+asc_sleep = 5 # Fill case 4 ascending sleep time
+asc_increment = 1 # Percentage increment for ascending
 
 machine_id = 864622110032548
 
@@ -119,4 +119,3 @@ if __name__ == '__main__':
     menu.append_item(overheat_case)
     menu.show()
 
-#push
